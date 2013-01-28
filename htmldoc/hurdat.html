@@ -1,0 +1,92 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module hurdat</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>hurdat</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/cannon/CMSC162/python-hurdat.github/hurdat.py">/home/cannon/CMSC162/python-hurdat.github/hurdat.py</a></font></td></tr></table>
+    <p><tt>hurdat.py&nbsp;<br>
+W.&nbsp;Cannon&nbsp;Matthews&nbsp;III&nbsp;-&nbsp;01/27/13&nbsp;<br>
+&nbsp;<br>
+A&nbsp;library&nbsp;to&nbsp;parse&nbsp;the&nbsp;HURDAT&nbsp;storm&nbsp;data&nbsp;provided&nbsp;by&nbsp;the&nbsp;NOAA<br>
+into&nbsp;a&nbsp;easy&nbsp;to&nbsp;use&nbsp;python&nbsp;Object</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="datetime.html">datetime</a><br>
+</td><td width="25%" valign=top><a href="re.html">re</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="hurdat.html#DailyData">DailyData</a>
+</font></dt><dt><font face="helvetica, arial"><a href="hurdat.html#QuarterlyRecord">QuarterlyRecord</a>
+</font></dt><dt><font face="helvetica, arial"><a href="hurdat.html#Storm">Storm</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DailyData">class <strong>DailyData</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Class&nbsp;to&nbsp;hold&nbsp;each&nbsp;daily&nbsp;record,&nbsp;contains&nbsp;4&nbsp;QuarterlyRecords&nbsp;in&nbsp;the&nbsp;quartersDict<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="DailyData-__init__"><strong>__init__</strong></a>(self, date, quarters)</dt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="QuarterlyRecord">class <strong>QuarterlyRecord</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>class&nbsp;to&nbsp;hold&nbsp;each&nbsp;of&nbsp;the&nbsp;4&nbsp;readings&nbsp;per&nbsp;day<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="QuarterlyRecord-__init__"><strong>__init__</strong></a>(self, stage, lat, long, wind, press)</dt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Storm">class <strong>Storm</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Represents&nbsp;a&nbsp;storm,&nbsp;has&nbsp;a&nbsp;list&nbsp;of&nbsp;<a href="#DailyData">DailyData</a>,&nbsp;and&nbsp;all&nbsp;the&nbsp;whole&nbsp;storm&nbsp;attributes<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Storm-__init__"><strong>__init__</strong></a>(self, date, days, s_number, total_num, name, us_hit, hit_cat)</dt></dl>
+
+<dl><dt><a name="Storm-saffir_simpson_days"><strong>saffir_simpson_days</strong></a>(self)</dt><dd><tt>Multiply&nbsp;the&nbsp;SSS&nbsp;Catagory&nbsp;times&nbsp;the&nbsp;length&nbsp;of&nbsp;time&nbsp;it&nbsp;spent&nbsp;there,&nbsp;then&nbsp;add&nbsp;it&nbsp;up&nbsp;for&nbsp;<br>
+a&nbsp;somewhat&nbsp;silly&nbsp;heuristic&nbsp;data&nbsp;analysis.</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-knots_to_mph"><strong>knots_to_mph</strong></a>(knots)</dt><dd><tt>given&nbsp;speed&nbsp;in&nbsp;knots,&nbsp;return&nbsp;float&nbsp;in&nbsp;mph</tt></dd></dl>
+ <dl><dt><a name="-mph_to_sscat"><strong>mph_to_sscat</strong></a>(mph)</dt><dd><tt>given&nbsp;wind&nbsp;speed&nbsp;in&nbsp;mph,&nbsp;return&nbsp;the&nbsp;Saffir-Simpson-Scale&nbsp;Catagory&nbsp;[1-5],&nbsp;0&nbsp;for&nbsp;tropical&nbsp;storms</tt></dd></dl>
+ <dl><dt><a name="-parse"><strong>parse</strong></a>()</dt><dd><tt>this&nbsp;fucntion&nbsp;parses&nbsp;the&nbsp;file,&nbsp;returns&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;the&nbsp;storms<br>
+parses&nbsp;every&nbsp;field&nbsp;in&nbsp;the&nbsp;data&nbsp;file<br>
+assumes&nbsp;file&nbsp;in&nbsp;current&nbsp;directory&nbsp;called&nbsp;'hurdat.txt'&nbsp;exists&nbsp;and&nbsp;is&nbsp;NOAA's&nbsp;HURDAT&nbsp;format&nbsp;<br>
+like:&nbsp;<a href="http://www.nhc.noaa.gov/data/hurdat/hurdat_atlantic_1851-2011.txt">http://www.nhc.noaa.gov/data/hurdat/hurdat_atlantic_1851-2011.txt</a><br>
+see&nbsp;also&nbsp;for&nbsp;explaination&nbsp;of&nbsp;format&nbsp;:&nbsp;<a href="http://www.aoml.noaa.gov/hrd/data_sub/hurdat.html">http://www.aoml.noaa.gov/hrd/data_sub/hurdat.html</a></tt></dd></dl>
+</td></tr></table>
+</body></html>
