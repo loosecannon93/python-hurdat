@@ -1,17 +1,22 @@
-#/usr/bin/python 
+#!/usr/bin/python 
 
-# W. Cannon Matthews III 
-# CMSC 16200
-# Exercise 08A
-# 01/27/13
+"""
+ hurdat.py 
+ W. Cannon Matthews III - 01/27/13 
+
+ A library to parse the HURDAT storm data provided by the NOAA
+ into a easy to use python Object
+"""
 
 
 import datetime
 import re
 
 def knots_to_mph(knots) :
+    """ given speed in knots, return float in mph"""
     return knots*1.15078
 def mph_to_sscat(mph) :
+    """ given wind speed in mph, return the Saffir-Simpson-Scale Catagory [1-5], 0 for tropical storms"""
     if mph < 74 : 
         return 0 
     elif mph>=74 and mph<96:
@@ -24,54 +29,9 @@ def mph_to_sscat(mph) :
         return 4
     elif mph >= 156:
         return 5 
-#dft #3
-def damage_transfer(sscat) :
-    if sscat == 0 :
-        damage = 0
-    elif sscat == 1 :
-        damage = 1 
-    elif sscat == 2 :
-        damage = 1.1 
-    elif sscat == 3 : 
-        damage = 1.2
-    elif sscat == 4 :
-        damage = 1.3 
-    elif sscat == 5 :
-        damage = 1.4 
-    return damage  
-#dtf #2
-#def damage_transfer(sscat) :
-#    if sscat == 0 :
-#        damage = 0.5
-#    elif sscat == 1 :
-#        damage = 1 
-#    elif sscat == 2 :
-#        damage = 1.5 
-#    elif sscat == 3 : 
-#        damage = 2.0
-#    elif sscat == 4 :
-#        damage = 2.5 
-#    elif sscat == 5 :
-#        damage = 3.0 
-#    return damage  
-#dtf #1
-#def damage_transfer(sscat) :
-#    if sscat == 0 :
-#        damage = 0.5
-#    elif sscat == 1 :
-#        damage = 1 
-#    elif sscat == 2 :
-#        damage = 2.5 
-#    elif sscat == 3 : 
-#        damage = 4.5
-#    elif sscat == 4 :
-#        damage = 6.5 
-#    elif sscat == 5 :
-#        damage = 10 
-#    return damage  
-
 # parse _everything_ incase i wanted to incorporate it into more analysis, ended up not but have this anyway
 class QuarterlyRecord:
+    """ class to hold each of the 4 readings per day """
     def __init__(self,stage,lat,long,wind,press)  :
         self.stage = stage 
         self.lat = lat 
@@ -80,11 +40,13 @@ class QuarterlyRecord:
         self.press = press 
 
 class DailyData : 
+    """ Class to hold each daily record, contains 4 QuarterlyRecords in the quartersDict """
     def __init__(self,date,quarters) : 
         self.date = date
         self.quarters = quarters
 
 class Storm : 
+    """ Represents a storm, has a list of DailyData, and all the whole storm attributes"""
     def __init__(self,date,days,s_number,total_num,name,us_hit,hit_cat):
         self.date = date
         self.days = days
@@ -94,31 +56,34 @@ class Storm :
         self.us_hit = us_hit
         self.hit_cat = hit_cat    
         self.daily_data = []
-    def log_day(self,daily_record) :
+    def _log_day(self,daily_record) :
+        """ add a DailyData to self.daily_data list"""
         self.daily_data.append(daily_record) 
-    def log_trailer(self,max_intensity,hit_states) :
+    def _log_trailer(self,max_intensity,hit_states) :
+        """ add the data from the processed trailing record for each storm"""
         self.max_intensity = max_intensity
         self.hit_states = hit_states
     def saffir_simpson_days(self) :
+        """Multiply the SSS Catagory times the length of time it spent there, then add it up for 
+           a somewhat silly heuristic data analysis. """
         ssdays = 0.0
         for day in self.daily_data : 
             for key in day.quarters :
                 sss = mph_to_sscat(knots_to_mph(day.quarters[key].wind))
                 ssdays += sss/4.0 
         return ssdays 
-    def damage_trans_days(self): 
-        dtfdays = 0.0
-        for day in self.daily_data : 
-            for key in day.quarters : 
-                dtf = damage_transfer(mph_to_sscat(knots_to_mph(day.quarters[key].wind)))
-                dtfdays += dtf/4.0  
-        return dtfdays        
+     
                 
                 
 
-# this fucntion parses the file, returns a list of all the storms
-# parses every field in the data file
 def parse() : 
+    """
+        this fucntion parses the file, returns a list of all the storms
+        parses every field in the data file
+        assumes file in current directory called 'hurdat.txt' exists and is NOAA's HURDAT format 
+        like: http://www.nhc.noaa.gov/data/hurdat/hurdat_atlantic_1851-2011.txt
+        see also for explaination of format : http://www.aoml.noaa.gov/hrd/data_sub/hurdat.html
+    """
     storms = []
     hurdat = open("hurdat.txt") 
     eof = False 
@@ -176,13 +141,13 @@ def parse() :
             day['quarters']['z08'] = QuarterlyRecord(**z06)
             day['quarters']['z12'] = QuarterlyRecord(**z12)
             day['quarters']['z18'] = QuarterlyRecord(**z18)
-            storm.log_day( DailyData(**day) )
+            storm._log_day( DailyData(**day) )
         line = hurdat.readline()
         trailer = {}
         trailer['max_intensity'] = line[6:8]
         trailer['hit_states'] = []
         for match in  re.finditer('(...)(\d)', line[8:].strip() ):
             trailer['hit_states'].append(match.group(1,2)) 
-        storm.log_trailer(**trailer) 
+        storm._log_trailer(**trailer) 
         storms.append(storm) 
     return storms
