@@ -19,7 +19,8 @@ CLASSES
     Storm
     
     class DailyData
-     |  Class to hold each daily record, contains 4 QuarterlyRecords in the quartersDict
+     |  Class to hold each daily record, contains 4 QuarterlyRecords 
+     |  in the quartersDict
      |  
      |  Methods defined here:
      |  
@@ -33,28 +34,34 @@ CLASSES
      |  __init__(self, stage, lat, long, wind, press)
     
     class Storm
-     |  Represents a storm, has a list of DailyData, and all the whole storm attributes
+     |  Represents a storm, has a list of DailyData, and all the whole 
+     |  storm attributes
      |  
      |  Methods defined here:
      |  
      |  __init__(self, date, days, s_number, total_num, name, us_hit, hit_cat)
      |  
      |  saffir_simpson_days(self)
-     |      Multiply the SSS Catagory times the length of time it spent there, then add it up for 
-     |      a somewhat silly heuristic data analysis.
+     |      Multiply the SSS Catagory times the length of time it spent
+     |      there, then add it up for a somewhat silly heuristic data 
+     |      analysis.
 
 FUNCTIONS
     knots_to_mph(knots)
         given speed in knots, return float in mph
     
     mph_to_sscat(mph)
-        given wind speed in mph, return the Saffir-Simpson-Scale Catagory [1-5], 0 for tropical storms
+        given wind speed in mph, return the Saffir-Simpson-Scale 
+        Catagory [1-5], 0 for tropical storms
     
     parse()
         this fucntion parses the file, returns a list of all the storms
         parses every field in the data file
-        assumes file in current directory called 'hurdat.txt' exists and is NOAA's HURDAT format 
-        like: http://www.nhc.noaa.gov/data/hurdat/hurdat_atlantic_1851-2011.txt
-        see also for explaination of format : http://www.aoml.noaa.gov/hrd/data_sub/hurdat.html
+        assumes file in current directory called 'hurdat.txt' exists 
+            and is NOAA's HURDAT format 
+        like: 
+            http://www.nhc.noaa.gov/data/hurdat/hurdat_atlantic_1851-2011.txt
+        see also for explaination of format : 
+            http://www.aoml.noaa.gov/hrd/data_sub/hurdat.html
 
 
